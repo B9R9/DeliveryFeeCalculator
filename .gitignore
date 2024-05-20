@@ -1,0 +1,24 @@
+# FRONTEND
+
+frontend/.storybook
+frontend/node_modules
+frontend/public
+frontend/library
+frontend/stories
+
+frontend/.eslintrc.csj
+
+frontend/package-lock.json
+frontend/vite.config.js
+
+
+# BACKEND
+
+backend/__pycache__
+backend/.pytest_cache
+backend/backend
+backend/*.log
+backend/*.lock
+
+
+**/*.DS_Store
