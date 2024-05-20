@@ -1,33 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import { createGlobalStyle, styled } from 'styled-components';
+
+import { MyForm } from './components/MyForm';
+import { Title } from './components/Title';
+import { DisplayFee } from './components/DisplayFee';
+
+import CalculateFee from '../service/Fee';
+
+
+const GlobalStyle = createGlobalStyle`
+@font-face {
+  font-family: 'Poetsen';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./public/assets/font/poetsen_One/PoetsenOne-Regular.ttf') format('truetype');
+}
+
+body {
+  background-color: #009de0;
+}
+`;
+
+const StyledBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  justify-content: stretch;
+  height: 100vh;
+`;
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [fee, setFee] = useState('-');
+
+  const handleFee = async (inputValues) => {
+    const response = await CalculateFee(inputValues);
+    setFee(response?.delivery_fee ?? null)
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <GlobalStyle />
+    <StyledBody>
+      <Title />
+      <MyForm handleFee={handleFee} setFee={setFee}/>
+      <DisplayFee totalFee={fee}/>
+    </StyledBody> 
     </>
   )
 }
