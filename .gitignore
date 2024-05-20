@@ -2,7 +2,6 @@
 
 frontend/.storybook
 frontend/node_modules
-frontend/public
 frontend/library
 frontend/stories
 
